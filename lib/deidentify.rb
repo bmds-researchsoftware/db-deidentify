@@ -16,6 +16,7 @@ end
 
 def alter(field)
   primary_keys(field).each do |primary_key|
+    puts primary_key
     perform_update(field, primary_key)
   end 
 end
@@ -26,20 +27,20 @@ def primary_keys(field)
   field['select_on'].each_pair do |column, value|
     sql += "#{where_and(sql)} #{column} = #{value} "
   end
-  sql += "ORDER BY #{field['primary_key_col']} ASC LIMIT 10 "
+  sql += "ORDER BY #{field['primary_key_col']} ASC LIMIT 10;"
   execute(sql).split("\n")
 end
 
 def perform_update(field, primary_key)
   sql = "UPDATE #{field['table']} "
   sql += "SET #{field['column']} = #{out_val(field)} "
-  sql += "#{where_and(sql)} #{field['primary_key_col']} = #{primary_key}"
-  puts execute(sql)
+  sql += "#{where_and(sql)} #{field['primary_key_col']} = #{primary_key};"
+  # puts execute(sql)
 end
 
 def out_val(field)
   if field['output'] == 'random' 
-    "'#{SecureRandom.hex[0..10]}'"
+    "'#{SecureRandom.hex[1..10]}'"
   end
 end
 
@@ -49,5 +50,5 @@ def where_and(str)
 end
 
 def execute(sql)
-  C.exec! "echo \"#{sql};\" | psql -A -t -d #{DB_CONFIG['db_name']} -f -"
+  C.exec! "echo \"#{sql}\" | psql -A -t -d #{TMP_DB} -f -"
 end
