@@ -26,12 +26,12 @@ def primary_keys(field)
   field['select_on'].each_pair do |column, value|
     sql += "#{where_and(sql)} #{column} = #{value} "
   end
-  sql += "ORDER BY #{field['primary_key_col']} ASC LIMIT 10;"
+  sql += "ORDER BY #{field['primary_key_col']} ASC LIMIT 50;"
   execute(sql).split("\n")
 end
 
 def perform_update(field, primary_key)
-  puts primary_key
+  # puts "#{TMP_DB} #{field['table']} #{primary_key}"
   sql = "UPDATE #{field['table']} "
   sql += "SET #{field['column']} = #{out_val(field)} "
   sql += "#{where_and(sql)} #{field['primary_key_col']} = #{primary_key};"
