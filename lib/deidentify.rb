@@ -16,7 +16,6 @@ end
 
 def alter(field)
   primary_keys(field).each do |primary_key|
-    puts primary_key
     perform_update(field, primary_key)
   end 
 end
@@ -35,7 +34,7 @@ def perform_update(field, primary_key)
   sql = "UPDATE #{field['table']} "
   sql += "SET #{field['column']} = #{out_val(field)} "
   sql += "#{where_and(sql)} #{field['primary_key_col']} = #{primary_key};"
-  # puts execute(sql)
+  execute(sql)
 end
 
 def out_val(field)
