@@ -54,12 +54,7 @@ cputs 'SSH session closed'
 
 # Retreive the dump
 # cputs "Secure-copying dump file to ./my_dumps/#{dump_name}" 
-# Net::SCP.download!(
-#   DB_CONFIG['host'],
-#   DB_CONFIG['user'],
-#   "./deidentified_snapshots/#{dump_name}",
-#   "./my_dumps/#{dump_name}"
-# )
+# scp_download!  "./deidentified_snapshots/#{dump_name}", "./my_dumps/#{dump_name}"
 END_TIME = Time.now
 cputs "Elapsed time #{Time.at(END_TIME - START_TIME).utc.strftime("%H:%M:%S")}"
 puts
