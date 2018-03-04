@@ -8,16 +8,13 @@ def deidentify!
   end
   # Load project-specfic deidentification config
   fields = YAML.load_file(pf 'fields.yml').remove!('ignore')
-  fields.each do |field|
-    puts "      #{field['name']} => #{field['output']}".blue
-    alter(field)
-  end
+  # Iterate of each field (top-level map) in fields.yml and alter records
+  fields.each {|field| alter(field)}
 end
 
 def alter(field)
-  primary_keys(field).each do |primary_key|
-    perform_update(field, primary_key)
-  end 
+  sql = build_sql(field)
+  execute(sql)
 end
 
 def primary_keys(field)
@@ -26,16 +23,23 @@ def primary_keys(field)
   field['select_on'].each_pair do |column, value|
     sql += "#{where_and(sql)} #{column} = #{value} "
   end
-  sql += "ORDER BY #{field['primary_key_col']} ASC LIMIT 50;"
+  # sql += "ORDER BY #{field['primary_key_col']};"
+  sql += "ORDER BY #{field['primary_key_col']} ASC LIMIT 500;"
   execute(sql).split("\n")
 end
 
-def perform_update(field, primary_key)
-  # puts "#{TMP_DB} #{field['table']} #{primary_key}"
-  sql = "UPDATE #{field['table']} "
-  sql += "SET #{field['column']} = #{out_val(field)} "
-  sql += "#{where_and(sql)} #{field['primary_key_col']} = #{primary_key};"
-  execute(sql)
+def build_sql(field)
+  statement_sql = ''
+  keys = primary_keys(field)
+  puts "      Altering #{keys.length} records for: #{field['name']} => #{field['output']}".blue
+  keys.each do |primary_key|
+    record_sql = "UPDATE #{field['table']} "
+    record_sql += "SET #{field['column']} = #{out_val(field)} "
+    record_sql += "#{where_and(record_sql)} #{field['primary_key_col']} = #{primary_key};\n"
+    statement_sql += record_sql
+  end 
+  # puts statement_sql
+  statement_sql
 end
 
 def out_val(field)
