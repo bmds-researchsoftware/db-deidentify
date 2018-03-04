@@ -8,6 +8,7 @@ START_TIME = Time.now
 exit unless ARGV[0] == 'name_ok'
 puts
 
+require 'ostruct'
 require 'net/ssh'
 require 'net/scp'
 require 'yaml'
