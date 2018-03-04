@@ -1,6 +1,6 @@
 # Called by the get_dump executable
 # All non-deidentifying tasks are handed here
-# Deidentification is handled in the call to deidentify(). See ./lib
+# Deidentification is handled in the call to deidentify! See ./lib
 # Paths are not Windows-friendly
 
 # Soft assurance that the user-supplied project name has already been validated
