@@ -1,15 +1,54 @@
 # See README.md for the structure of this file
 
 - ignore:
+    # Answer templates
     simple_string: &simple_string
       primary_key_col: id
       type: individual
       leave_null: true
       table: answers
       column: string
-  
+
+# Answer fields
 - name: Medical record number (pregnancy_mrn)
   <<: *simple_string
   output: random
   select_on:
     question_id: 155
+
+- name: Child first name (child_first_name)
+  <<: *simple_string
+  output: random
+  select_on:
+    question_id: 153
+
+- name: Child last name (child_last_name)
+  <<: *simple_string
+  output: random
+  select_on:
+    question_id: 154
+
+- name: Physician first name (AdminDelivered_7)
+  <<: *simple_string
+  output: random
+  select_on:
+    question_id: 204
+
+- name: Physician last name (AdminDelivered_8)
+  <<: *simple_string
+  output: random
+  select_on:
+    question_id: 42
+
+- name: Physician last name (AdminDelivered_8)
+  <<: *simple_string
+  output: random
+  select_on:
+    question_id: 42
+
+- name: Email address (ContactInfoEmail_2)
+  <<: *simple_string
+  output: random
+  select_on:
+    question_id: 200
+
