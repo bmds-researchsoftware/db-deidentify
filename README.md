@@ -2,7 +2,9 @@
 A database de-identification utility
 
 ## Postgres setup
-1. Create a distinct role on the target host for this application
+Assumes you are useing peer authentication
+1. Create a distinct user on the target host for this application
+1. Create role for this user name on the target host for this application
 1. Grant that role createdb privileges
   <pre>
   ALTER ROLE <b><i>role_name</i></b> WITH createdb;
