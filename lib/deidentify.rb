@@ -8,7 +8,7 @@ def deidentify!
   end
 
   # Load project-specfic deidentification config
-  settings = YAML.load_file(pf 'settings.yml')
+  settings = YAML.load_file(pf 'settings.yml').remove!('ignore')
 
-	puts TMP_DB
+  cputs settings.inspect
 end
