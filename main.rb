@@ -20,14 +20,14 @@ project_name = @project_path.split('/').last
 DB_CONFIG = YAML.load_file(pf 'db_config.yml')
 
 # The ssh connection object
-C = ssh_connect(DB_CONFIG['host'], DB_CONFIG['user'])
+C = ssh_connect!
 
 # Used for tmp db name and tmp dump filename
 # TMP_DB = SecureRandom.hex
 TMP_DB = 'c16ba942d1dc227164bf1f1ade574e40'
 
 # Set up temporary database
-TMP_DIR = './.tmp_snapshots'
+TMP_DIR = './.tmp'
 # cputs "Taking snapshot and populating temporary database #{TMP_DB}"
 # C.exec! "mkdir -p #{TMP_DIR}"
 # C.exec! "pg_dump -Fc #{DB_CONFIG['db_name']} > #{TMP_DIR}/#{TMP_DB}.dump"

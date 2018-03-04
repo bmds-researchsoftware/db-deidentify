@@ -18,16 +18,27 @@ def debug(thing)
   puts "Debug:\n#{thing.inspect}\n".yellow
 end
 
-def ssh_connect(host, username)
+def ssh_connect!
+  host = DB_CONFIG['host']
+  user = DB_CONFIG['user']
   begin
-    connection = Net::SSH.start(host, username, host_name: host, keepalive: true, keepalive_interval: 1)
+    connection = Net::SSH.start(host, user)
   rescue => error
     cputs "Unable to connect to #{host}"
     cputs error
     nil
   end
-  cputs "Established SSH session with #{host} for user #{username}"
+  cputs "Established SSH session with #{host} for user #{user}"
   connection
+end
+
+def scp_put(local_path, remote_path)
+  Net::SCP.upload!(
+    DB_CONFIG['host'],
+    DB_CONFIG['user'],
+    local_path,
+    remote_path
+  )
 end
 
 # "Project file" returns a path for the passed-in project-specific file

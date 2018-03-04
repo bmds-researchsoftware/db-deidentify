@@ -54,9 +54,12 @@ def where_and(str)
 end
 
 def execute(sql)
-  channel = C.open_channel do |ch|
-    timeout 86400 do
-      c.exec! "echo \"#{sql}\" | psql -A -t -d #{TMP_DB} -f -"
-    end
-  end
+  tmp = Digest::MD5.hexdigest(sql)
+  tmp_path = "#{TMP_DIR}/#{tmp}"
+  File.write tmp_path, sql 
+  scp_put tmp_path, tmp_path 
+  result = C.exec! "psql -A -t -d #{TMP_DB} -f #{tmp_path}"
+  C.exec! "rm #{tmp_path}"
+  File.delete tmp_path
+  result
 end
