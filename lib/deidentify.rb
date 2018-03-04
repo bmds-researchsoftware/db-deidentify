@@ -23,8 +23,8 @@ def primary_keys(field)
   field['select_on'].each_pair do |column, value|
     sql += "#{where_and(sql)} #{column} = #{value} "
   end
-  # sql += "ORDER BY #{field['primary_key_col']};"
-  sql += "ORDER BY #{field['primary_key_col']} ASC LIMIT 500;"
+  sql += "ORDER BY #{field['primary_key_col']};"
+  # sql += "ORDER BY #{field['primary_key_col']} ASC LIMIT 500;"
   execute(sql).split("\n")
 end
 
@@ -54,5 +54,9 @@ def where_and(str)
 end
 
 def execute(sql)
-  C.exec! "echo \"#{sql}\" | psql -A -t -d #{TMP_DB} -f -"
+  channel = C.open_channel do |ch|
+    timeout 86400 do
+      c.exec! "echo \"#{sql}\" | psql -A -t -d #{TMP_DB} -f -"
+    end
+  end
 end

@@ -20,7 +20,7 @@ end
 
 def ssh_connect(host, username)
   begin
-    connection = Net::SSH.start(host, username)
+    connection = Net::SSH.start(host, username, host_name: host, keepalive: true, keepalive_interval: 1)
   rescue => error
     cputs "Unable to connect to #{host}"
     cputs error
