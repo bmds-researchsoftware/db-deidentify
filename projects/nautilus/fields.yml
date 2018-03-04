@@ -1,0 +1,15 @@
+# See README.md for the structure of this file
+
+- ignore:
+    simple_string: &simple_string
+      primary_key_col: id
+      type: individual
+      leave_null: true
+      table: answers
+      column: string
+  
+- name: Medical record number (pregnancy_mrn)
+  <<: *simple_string
+  output: random
+  select_on:
+    question_id: 155

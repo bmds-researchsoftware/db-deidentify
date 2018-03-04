@@ -8,8 +8,8 @@ def deidentify!
   end
   # Load project-specfic deidentification config
   fields = YAML.load_file(pf 'fields.yml').remove!('ignore')
-  fields.each do |f|
-    puts "      #{f['name']} => #{f['output']}".blue
+  fields.each do |field|
+    puts "      #{field['name']} => #{field['output']}".blue
     alter(field)
   end
 end
@@ -21,30 +21,33 @@ def alter(field)
 end
 
 def primary_keys(field)
-  str = "UPDATE #{field['table']} "
-  str += "#{where_and(str)} #{field} IS NOT NULL " if field['leave_null']
-  field['select_on'].each do |column, value|
-    str += "#{where_and(str)} #{column]} = #{value} "
+  sql = "SELECT #{field['primary_key_col']} from #{field['table']} "
+  sql += "#{where_and(sql)} #{field['column']} IS NOT NULL " if field['leave_null']
+  field['select_on'].each_pair do |column, value|
+    sql += "#{where_and(sql)} #{column} = #{value} "
   end
-  str += "SET #{field['column']} = #{out_val(field['output'])}"
+  sql += "ORDER BY #{field['primary_key_col']} ASC LIMIT 10 "
+  execute(sql).split("\n")
 end
 
-# def primary_keys(field)
-#   str = "UPDATE #{field['table']} "
-#   str += "#{where_and(str)} #{field} IS NOT NULL " if field['leave_null']
-#   field['select_on'].each do |column, value|
-#     str += "#{where_and(str)} #{column]} = #{value} "
-#   end
-#   str += "SET #{field['column']} = #{out_val(field['output'])}"
-# end
+def perform_update(field, primary_key)
+  sql = "UPDATE #{field['table']} "
+  sql += "SET #{field['column']} = #{out_val(field)} "
+  sql += "#{where_and(sql)} #{field['primary_key_col']} = #{primary_key}"
+  puts execute(sql)
+end
 
-def out_val(type)
-  if type == 'random' 
-    SecureRandom.hex[0..10]
+def out_val(field)
+  if field['output'] == 'random' 
+    "'#{SecureRandom.hex[0..10]}'"
   end
 end
 
 # Starts a WHERE clause unless we're already in one, then uses AND
 def where_and(str)
   str.include?('WHERE') ? 'AND' : 'WHERE'
+end
+
+def execute(sql)
+  C.exec! "echo \"#{sql};\" | psql -A -t -d #{DB_CONFIG['db_name']} -f -"
 end
