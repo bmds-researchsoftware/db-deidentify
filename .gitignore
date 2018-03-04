@@ -1,3 +1,4 @@
 *.swp
 /my_dumps/*
 *db_config.yml
+/.tmp/*
