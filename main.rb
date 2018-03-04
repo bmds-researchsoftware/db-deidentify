@@ -60,6 +60,6 @@ cputs 'SSH session closed'
 #   "./deidentified_snapshots/#{dump_name}",
 #   "./my_dumps/#{dump_name}"
 # )
-puts
 END_TIME = Time.now
 cputs "Elapsed time #{Time.at(END_TIME - START_TIME).utc.strftime("%H:%M:%S")}"
+puts
