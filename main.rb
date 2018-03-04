@@ -1,3 +1,4 @@
+START_TIME = Time.now
 # Called by the get_dump executable
 # All non-deidentifying tasks are handed here
 # Deidentification is handled in the call to deidentify! See ./lib
@@ -60,3 +61,5 @@ cputs 'SSH session closed'
 #   "./my_dumps/#{dump_name}"
 # )
 puts
+END_TIME = Time.now
+cputs "Elapsed time #{Time.at(END_TIME - START_TIME).utc.strftime("%H:%M:%S")}"
