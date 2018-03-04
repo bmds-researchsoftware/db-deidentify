@@ -13,8 +13,9 @@ Assumes you are useing peer authentication
   * must be connected to the target\_db
   * note the distinction between ***creating\_role*** and ***role***
 
-  ```sql
-  GRANT SELECT ON ALL TABLES IN SCHEMA public TO role;
-  ALTER DEFAULT PRIVILEGES FOR ROLE creating_role IN SCHEMA public GRANT SELECT ON TABLES TO role;
-  GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO role;
-  ALTER DEFAULT PRIVILEGES FOR ROLE creating_role IN SCHEMA public GRANT SELECT ON SEQUENCES TO role;````
+  <pre>
+  GRANT SELECT ON ALL TABLES IN SCHEMA public TO <b><i>role</i></b>;
+  ALTER DEFAULT PRIVILEGES FOR ROLE <b><i>creating_role</i></b> IN SCHEMA public GRANT SELECT ON TABLES TO <b><i>role</i></b>;
+  GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO <b><i>role</i></b>;
+  ALTER DEFAULT PRIVILEGES FOR ROLE <b><i>creating_role</i></b> IN SCHEMA public GRANT SELECT ON SEQUENCES TO <b><i>role</i></b>;
+  </pre>
