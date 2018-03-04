@@ -9,10 +9,25 @@ exit unless ARGV[0] == 'name_ok'
 puts
 
 require 'ostruct'
+require 'csv'
 require 'net/ssh'
 require 'net/scp'
 require 'yaml'
 Dir['./lib/*.rb'].each {|file| require file }
+
+# Struct containing all fake libraries. call like: FakeLib.woman_names.sample
+fake_libs = Dir['./lib/*.fake_lib_csv']
+if fake_libs.any?
+	fake_lib = {}
+	fake_libs.each do |name|
+		basename = File.basename(name, '.*')
+		fake_lib[basename] = CSV.read(name)[0]
+	end
+	FakeLib = OpenStruct.new(fake_lib).freeze
+	cputs FakeLib.last_names
+end
+
+exit
 
 @project_path = ARGV[1]
 project_name = @project_path.split('/').last
