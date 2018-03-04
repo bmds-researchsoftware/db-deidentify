@@ -1,4 +1,3 @@
 *.swp
 /my_dumps/*
 *db_config.yml
-*fields.yml
