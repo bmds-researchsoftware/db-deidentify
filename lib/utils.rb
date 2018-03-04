@@ -32,12 +32,21 @@ def ssh_connect!
   connection
 end
 
-def scp_put(local_path, remote_path)
+def scp_upload!(local_path, remote_path)
   Net::SCP.upload!(
     DB_CONFIG['host'],
     DB_CONFIG['user'],
     local_path,
     remote_path
+  )
+end
+
+def scp_download!(remote_path, local_path)
+  Net::SCP.download!(
+    DB_CONFIG['host'],
+    DB_CONFIG['user'],
+    remote_path,
+    local_path
   )
 end
 

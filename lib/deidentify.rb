@@ -57,7 +57,7 @@ def execute(sql)
   tmp = Digest::MD5.hexdigest(sql)
   tmp_path = "#{TMP_DIR}/#{tmp}"
   File.write tmp_path, sql 
-  scp_put tmp_path, tmp_path 
+  scp_upload! tmp_path, tmp_path 
   result = C.exec! "psql -A -t -d #{TMP_DB} -f #{tmp_path}"
   C.exec! "rm #{tmp_path}"
   File.delete tmp_path
