@@ -1,5 +1,11 @@
 require 'colorize'
 
+class Array
+  def remove!(*keys)
+    self.delete_if {|e| keys.include? e.keys.first}
+  end
+end
+
 def cputs(str)
   puts "    #{str}".green
 end
