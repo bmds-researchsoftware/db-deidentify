@@ -31,6 +31,7 @@ def primary_keys(field)
 end
 
 def perform_update(field, primary_key)
+  puts primary_key
   sql = "UPDATE #{field['table']} "
   sql += "SET #{field['column']} = #{out_val(field)} "
   sql += "#{where_and(sql)} #{field['primary_key_col']} = #{primary_key};"

@@ -23,13 +23,15 @@ C = ssh_connect(DB_CONFIG['host'], DB_CONFIG['user'])
 
 # Used for tmp db name and tmp dump filename
 # TMP_DB = SecureRandom.hex
-TMP_DB = '4b6f0426c98801d23b43ccf79412ad67'
+TMP_DB = 'c16ba942d1dc227164bf1f1ade574e40'
 
 # Set up temporary database
+TMP_DIR = './.tmp_snapshots'
 # cputs "Taking snapshot and populating temporary database #{TMP_DB}"
-# C.exec! "pg_dump -Fc #{DB_CONFIG['db_name']} > #{TMP_DB}.dump"
+# C.exec! "mkdir -p #{TMP_DIR}"
+# C.exec! "pg_dump -Fc #{DB_CONFIG['db_name']} > #{TMP_DIR}/#{TMP_DB}.dump"
 # C.exec! "createdb #{TMP_DB}"
-# C.exec! "pg_restore -d #{TMP_DB} #{TMP_DB}.dump"
+# C.exec! "pg_restore -d #{TMP_DB} #{TMP_DIR}/#{TMP_DB}.dump"
 
 # Deidentify tempoaray database - this is where the work gets done
 cputs 'Deidentifying data'
@@ -40,12 +42,12 @@ rescue => error
 end
 
 # Dump deidentified database and clean up
-# dump_name = Time.now.strftime("#{project_name}_deidentified_%Y-%m-%d_%H%M%S.dump")
+dump_name = Time.now.strftime("#{project_name}_deidentified_%Y-%m-%d_%H%M%S.dump")
 # cputs "Creating #{dump_name} and cleaning up"
 # C.exec! 'mkdir -p deidentified_snapshots'
 # C.exec! "pg_dump -Fc #{TMP_DB} > ./deidentified_snapshots/#{dump_name}"
 # C.exec! "dropdb #{TMP_DB}"
-# C.exec! "rm #{TMP_DB}.dump"
+# C.exec! "rm #{TMP_DIR}/#{TMP_DB}.dump"
 C.close
 cputs 'SSH session closed'
 
