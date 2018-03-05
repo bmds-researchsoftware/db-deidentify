@@ -3,11 +3,11 @@
 - ignore:
     # Answer templates
     simple_string: &simple_string
+      table: answers
+      column: string
       primary_key_col: id
       type: individual
       leave_null: true
-      table: answers
-      column: string
 
 # Woman
 - name: Woman email
