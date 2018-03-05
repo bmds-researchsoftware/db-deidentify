@@ -29,11 +29,11 @@ attributes that they have in common.
 - ignore:
     # Answer templates
     simple_string: &simple_string
+      table: answers
+      column: string
       primary_key_col: id
       type: individual
       leave_null: true
-      table: answers
-      column: string
 </pre>
 
 Each not-ignored top-level map must have the following key-value pairs
