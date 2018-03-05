@@ -21,10 +21,10 @@ restored database seems to work. :pray:
 All project-specific configuration occurs in this file. Each project has a `fields.yml` file in
 its project directory. The top-level structure of the file is a sequence. This sequence is loaded into 
 an array at runtime. Each map in the sequence corresponds to a particular database field
-(table-column combination) that needs to be deidentified. The first map is a special case. It is
-ignored by the application, so you can put any YAML content inside of it, such as anchors.
+(table-column combination) that needs to be deidentified. Any top-level map with the name `ignore:`
+will be ignored at runtime, so you can put any YAML content there, such as anchors.
 
-Each field must have the following key-value pairs
+Each not-ignored top-level map must have the following key-value pairs
 * `name:` Any text you like to describe the field
 * `table:` The database table containing the field
 * `column:` The column containing the field
