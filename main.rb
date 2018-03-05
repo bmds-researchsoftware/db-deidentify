@@ -17,7 +17,7 @@ Dir['./lib/*.rb'].each {|file| require file }
 
 # Struct containing all fake libraries. call like: FakeLib.female_names.sample
 fake_lib = {}
-Dir['./lib/*.fake_lib_csv'].each do |name|
+Dir['./fake_libs/*.fake_lib_csv'].each do |name|
 	basename = File.basename(name, '.*')
 	fake_lib[basename] = CSV.read(name)[0]
 end
