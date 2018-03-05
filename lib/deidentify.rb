@@ -15,11 +15,13 @@ def deidentify!
   end
 end
 
+# Builds and executes the SQL for a field
 def alter(field)
   sql = build_sql(field)
   execute(sql)
 end
 
+# Gets the primary keys for the records to be altered for a given field
 def primary_keys(field)
   sql = "SELECT #{field.primary_key_col} from #{field.table} "
   sql += "#{where_and(sql)} #{field.column} IS NOT NULL " if field.leave_null
@@ -30,6 +32,7 @@ def primary_keys(field)
   execute(sql).split("\n")
 end
 
+# Builds a list of alter statements, one for each record in a field
 def build_sql(field)
   statement_sql = ''
   keys = primary_keys(field)
@@ -43,6 +46,7 @@ def build_sql(field)
   statement_sql
 end
 
+# Returns an ouput value for a given record
 def out_val(field)
   output_type = field.output_type.to_sym
   return "'#{SecureRandom.hex[1..10]}'" if output_type == :random
@@ -56,6 +60,7 @@ def where_and(str)
   str.include?('WHERE') ? 'AND' : 'WHERE'
 end
 
+# Executes sql on the remote server
 def execute(sql)
   tmp = Digest::MD5.hexdigest(sql)
   tmp_path = "#{TMP_DIR}/#{tmp}"
