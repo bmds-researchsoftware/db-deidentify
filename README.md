@@ -1,5 +1,5 @@
 # db-deidentify
-Creates a local deidentified pg\_dump of a remote postgres database.
+Local deidentified pg\_dumps for remote postgres databases.
 
 ## Getting started
 There are no prerequisites other than Ruby and the bundler gem.
