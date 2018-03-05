@@ -2,3 +2,4 @@
 /my_dumps/*.dump
 *db_config.yml
 /.tmp/*
+!/.tmp/.gitkeep
