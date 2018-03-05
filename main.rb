@@ -15,7 +15,7 @@ require 'net/scp'
 require 'yaml'
 Dir['./lib/*.rb'].each {|file| require file }
 
-# Struct containing all fake libraries. call like: FakeLib.woman_names.sample
+# Struct containing all fake libraries. call like: FakeLib.female_names.sample
 fake_libs = Dir['./lib/*.fake_lib_csv']
 if fake_libs.any?
 	fake_lib = {}
