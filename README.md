@@ -15,7 +15,7 @@ db_name: <b><i>target_database_name</i></b>
 * run the program using the `get_dump` executable and provide the project name as an argument, like
 `./get_dump nautilus`. Dump files will be placed in the `my_dumps` directory and will be ignored
 by git. When using a dump file, `pg_restore` may complain about roles and privileges, but there
-are no known consepquences of these warnings for local database functioning :pray:
+are no known consequences of these warnings for local database functioning :pray:
 
 ## fields.yml
 All project-specific configuration occurs in this file. Each project has a `fields.yml` file in
