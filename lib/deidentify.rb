@@ -10,7 +10,6 @@ def deidentify!
   fields = YAML.load_file(pf 'fields.yml').remove!('ignore')
   # Iterate of each field (top-level map) in fields.yml and alter records
   fields.each do |field|
-    # Dot notation is more fun than hash notation
     field = OpenStruct.new(field).freeze
     alter(field)
   end
@@ -28,27 +27,27 @@ def primary_keys(field)
     sql += "#{where_and(sql)} #{column} = #{value} "
   end
   sql += "ORDER BY #{field.primary_key_col};"
-  # sql += "ORDER BY #{field.primary_key_col} ASC LIMIT 500;"
   execute(sql).split("\n")
 end
 
 def build_sql(field)
   statement_sql = ''
   keys = primary_keys(field)
-  puts "      Altering #{keys.length} records for: #{field.name} => #{field.output}".blue
+  puts "      Altering #{keys.length} records for: #{field.name} => #{field.output_type}".blue
   keys.each do |primary_key|
     record_sql = "UPDATE #{field.table} "
-    record_sql += "SET #{field.column} = #{out_val(field)} "
+    record_sql += "SET #{field.column} = '#{out_val(field)}' "
     record_sql += "#{where_and(record_sql)} #{field.primary_key_col} = #{primary_key};\n"
     statement_sql += record_sql
   end 
-  # puts statement_sql
   statement_sql
 end
 
 def out_val(field)
-  if field.output == 'random' 
-    "'#{SecureRandom.hex[1..10]}'"
+  output_type = field.output_type.to_sym
+  return "'#{SecureRandom.hex[1..10]}'" if output_type == :random
+	if FakeLib.methods(false).include?(output_type)
+    return FakeLib.send(output_type).sample
   end
 end
 
