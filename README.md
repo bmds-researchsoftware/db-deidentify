@@ -1,7 +1,11 @@
 # db-deidentify
-A database de-identification utility
+Creates a local deidentified pg\_dump of a remote postgres database.
 
-## Postgres setup
+## Installing
+There are no prerequisites other than Ruby and the bundler gem.
+* Clone the repo to your machine
+
+## Postgres setup on the remote server (for db admins)
 Assumes you are useing peer authentication
 1. Create a distinct user on the target host for this application
 1. Create role for this user name on the target host for this application
