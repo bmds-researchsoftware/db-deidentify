@@ -41,7 +41,7 @@ nulls will be replaced with program output.
   * `last_name` a random surname
   * `email` a random email address such as 45e8fa@15103e.com
 
-Optionally, each field may have a nested map with the key `where:` This map is used to
+Optionally, each field may have a nested map with the key `where:`. This map is used to
 generate WHERE clauses in the resulting SQL. Each key is a column name, and each value is
 the value that the WHERE clause will filter on. In the example below, only records where
 question\_id is 155 are altered.
