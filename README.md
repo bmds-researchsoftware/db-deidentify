@@ -55,8 +55,7 @@ question\_id is 155 are altered.
 
 ## Postgres setup on the remote server (for db admins)
 * Create a distinct user on the target host for this application
-* Create a postgres role for this user name on the target host for this application
-* Grant that role createdb privileges
+* Create a postgres role for the user and grant that role createddb privileges
   <pre>
   ALTER ROLE <b><i>role_name</i></b> WITH createdb;
   </pre>
