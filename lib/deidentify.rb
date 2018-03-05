@@ -25,7 +25,7 @@ end
 def primary_keys(field)
   sql = "SELECT #{field.primary_key_col} from #{field.table} "
   sql += "#{where_and(sql)} #{field.column} IS NOT NULL " if field.leave_null
-  field.select_on&.each_pair do |column, value|
+  field.where&.each_pair do |column, value|
     sql += "#{where_and(sql)} #{column} = #{value} "
   end
   sql += "ORDER BY #{field.primary_key_col};"

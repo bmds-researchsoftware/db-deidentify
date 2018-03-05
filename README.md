@@ -41,9 +41,17 @@ nulls will be replaced with program output.
   * `last_name` a random surname
   * `email` a random email address such as 45e8fa@15103e.com
 
-Optionally, each field may have a nested map with the key `select_on:` This map is used to
+Optionally, each field may have a nested map with the key `where:` This map is used to
 generate WHERE clauses in the resulting SQL. Each key is a column name, and each value is
-the value that the WHERE clause will filter on.
+the value that the WHERE clause will filter on. In the example below, only recrods where
+question\_id is 155 are altered.
+<pre>
+- name: Medical record number (pregnancy_mrn)
+  <<: *simple_string
+  output_type: random
+  where:
+    question_id: 155
+</pre>
 
 ## Postgres setup on the remote server (for db admins)
 * Create a distinct user on the target host for this application

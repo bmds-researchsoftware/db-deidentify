@@ -1,6 +1,6 @@
 START_TIME = Time.now
 # Called by the get_dump executable
-# All non-deidentifying tasks are handed here
+# All non-deidentifying tasks are handled here
 # Deidentification is handled in the call to deidentify! See ./lib
 # Paths are not Windows-friendly
 
