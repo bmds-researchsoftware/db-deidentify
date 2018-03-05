@@ -28,7 +28,7 @@ def ssh_connect!
     cputs error
     nil
   end
-  cputs "Established SSH session with #{host} for user #{user}"
+  cputs "Established SSH session with #{host}"
   connection
 end
 
