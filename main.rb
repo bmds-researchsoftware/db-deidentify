@@ -16,18 +16,12 @@ require 'yaml'
 Dir['./lib/*.rb'].each {|file| require file }
 
 # Struct containing all fake libraries. call like: FakeLib.female_names.sample
-fake_libs = Dir['./lib/*.fake_lib_csv']
-if fake_libs.any?
-	fake_lib = {}
-	fake_libs.each do |name|
-		basename = File.basename(name, '.*')
-		fake_lib[basename] = CSV.read(name)[0]
-	end
-	FakeLib = OpenStruct.new(fake_lib).freeze
-	cputs FakeLib.last_names
+fake_lib = {}
+Dir['./lib/*.fake_lib_csv'].each do |name|
+	basename = File.basename(name, '.*')
+	fake_lib[basename] = CSV.read(name)[0]
 end
-
-exit
+FakeLib = OpenStruct.new(fake_lib).freeze
 
 @project_path = ARGV[1]
 project_name = @project_path.split('/').last
