@@ -9,6 +9,32 @@
       table: answers
       column: string
 
+# Woman
+- name: Woman email
+  primary_key_col: id
+  type: individual
+  leave_null: true
+  table: women
+  column: email
+  output_type: email
+
+# Woman names
+- name: Woman first name
+  primary_key_col: id
+  type: individual
+  leave_null: true
+  table: woman_names
+  column: first_name
+  output_type: female_name
+
+- name: Woman last name
+  primary_key_col: id
+  type: individual
+  leave_null: true
+  table: woman_names
+  column: last_name
+  output_type: last_name
+
 # Answer fields
 - name: Medical record number (pregnancy_mrn)
   <<: *simple_string
@@ -42,7 +68,7 @@
 
 - name: Email address (ContactInfoEmail_2)
   <<: *simple_string
-  output_type: male_name 
+  output_type: email
   select_on:
     question_id: 200
 
