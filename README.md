@@ -43,7 +43,7 @@ nulls will be replaced with program output.
 
 Optionally, each field may have a nested map with the key `where:` This map is used to
 generate WHERE clauses in the resulting SQL. Each key is a column name, and each value is
-the value that the WHERE clause will filter on. In the example below, only recrods where
+the value that the WHERE clause will filter on. In the example below, only records where
 question\_id is 155 are altered.
 <pre>
 - name: Medical record number (pregnancy_mrn)
