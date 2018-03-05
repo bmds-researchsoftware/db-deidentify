@@ -19,10 +19,22 @@ restored database seems to work. :pray:
 
 ## fields.yml
 All project-specific configuration occurs in this file. Each project has a `fields.yml` file in
-its project directory. The top-level structure of the file is a sequence. This sequence is loaded into 
+its project directory. The top-level structure of the file is a sequence that is loaded into 
 an array at runtime. Each map in the sequence corresponds to a particular database field
-(table-column combination) that needs to be deidentified. Any top-level map with the name `ignore:`
-will be ignored at runtime, so you can put any YAML content there, such as anchors.
+(table-column combination) that needs to be deidentified. Any top-level map with the key `ignore:`
+will be ignored at runtime, so you can put any YAML content there, such as anchors. Here is an
+example where an achor servers as a template for a group of similar fields, defining the
+attributes that they have in common.
+<pre>
+- ignore:
+    # Answer templates
+    simple_string: &simple_string
+      primary_key_col: id
+      type: individual
+      leave_null: true
+      table: answers
+      column: string
+</pre>
 
 Each not-ignored top-level map must have the following key-value pairs
 * `name:` Any text you like to describe the field
