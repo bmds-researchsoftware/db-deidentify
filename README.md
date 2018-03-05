@@ -1,18 +1,19 @@
 # db-deidentify
 Creates a local deidentified pg\_dump of a remote postgres database.
 
-## Installing
+## Getting started
 There are no prerequisites other than Ruby and the bundler gem.
 * Clone the repo to your machine
 * Run `bundle install`
 * Create a file called `db_conf.yml` your target project directory, such as
-`./projects/nautilus/db_conf.yml`. This file is ignored by git and has the following format. See 
-your dba for these values.
+`./projects/nautilus/db_conf.yml`. This file is ignored by git and has the following format. 
 <pre>
 host: <b><i>remote_host_name</i></b>
 user: <b><i>remote_host_user</i></b>
 db_name: <b><i>target_database_name</i></b>
 </pre>
+* run the program using the `get_dump` executable and provide the project name as an argument, like
+`./get_dump nautilus`
 
 ## Postgres setup on the remote server (for db admins)
 Assumes you are useing peer authentication
