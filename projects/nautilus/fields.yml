@@ -11,27 +11,27 @@
 
 # Woman
 - name: Woman email
+  table: women
+  column: email
   primary_key_col: id
   type: individual
   leave_null: true
-  table: women
-  column: email
   output_type: email
 
 # Woman names
 - name: Woman first name
+  table: woman_names
+  column: first_name
   primary_key_col: id
   type: individual
   leave_null: true
-  table: woman_names
-  column: first_name
   output_type: female_name
 
 - name: Woman last name
+  table: woman_names
   primary_key_col: id
   type: individual
   leave_null: true
-  table: woman_names
   column: last_name
   output_type: last_name
 
