@@ -1,3 +1,5 @@
 *.swp
-/my_dumps/*
+/my_dumps/*.dump
 *db_config.yml
+/.tmp/*
+!/.tmp/.gitkeep
