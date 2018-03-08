@@ -27,7 +27,7 @@ FakeLib = OpenStruct.new(fake_lib).freeze
 project_name = @project_path.split('/').last
 
 # Load project-specific content
-DB_CONFIG = YAML.load_file(pf 'db_config.yml')
+DB_CONFIG = YAML.load_file(pf 'db_conf.yml')
 
 # The ssh connection object
 C = ssh_connect!
