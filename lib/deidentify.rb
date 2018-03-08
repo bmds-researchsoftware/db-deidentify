@@ -1,5 +1,8 @@
 # Entry point for deidentifying the live temporary db. Called from main.rb
 def deidentify!
+
+  return false
+
   # Make sure that tmp_db looks like a db created by this tool
   hex_32_str = /\A[0-9a-f]{32}\z/
   unless hex_32_str.match(TMP_DB)
@@ -7,7 +10,7 @@ def deidentify!
     return
   end
   # Load project-specfic deidentification config into a struct
-  fields = YAML.load_file(pf 'fields.yml')
+  fields = YAML.load_file(project_file 'fields.yml')
   # If nothing is found in the file, YAML will return false
   if fields
     fields = fields.remove!('ignore')

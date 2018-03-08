@@ -27,7 +27,7 @@ FakeLib = OpenStruct.new(fake_lib).freeze
 project_name = @project_path.split('/').last
 
 # Load project-specific content
-DB_CONFIG = YAML.load_file(pf 'db_conf.yml')
+DB_CONFIG = YAML.load_file(project_file 'db_conf.yml')
 
 # The ssh connection object
 C = ssh_connect!
@@ -63,7 +63,10 @@ cputs 'SSH session closed'
 
 # Retreive the dump
 cputs "Secure-copying dump file to ./my_dumps/#{dump_name}" 
-scp_download!("./deidentified_snapshots/#{dump_name}", "./my_dumps/#{dump_name}")
+dump_path = project_file 'dumps'
+eputs dump_path
+`"mkdir -p #{dump_path}"`
+scp_download!("./deidentified_snapshots/#{dump_name}", "#{dump_path}/#{dump_name}")
 END_TIME = Time.now
 cputs "Elapsed time #{Time.at(END_TIME - START_TIME).utc.strftime("%H:%M:%S")}"
 puts
