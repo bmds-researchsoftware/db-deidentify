@@ -45,13 +45,14 @@ C.exec! "pg_restore -d #{TMP_DB} #{TMP_DIR}/#{TMP_DB}.dump"
 
 cputs 'Deidentifying data'
 begin
-  deidentify!
+  deidentified = deidentify!
 rescue => error
   eputs(error)
 end
 
 # Dump deidentified database and clean up
-dump_name = Time.now.strftime("#{project_name}_deidentified_%Y-%m-%d_%H%M%S.dump")
+dump_type = deidentified ? 'deidentified' : 'raw'
+dump_name = Time.now.strftime("#{project_name}_#{dump_type}_%Y-%m-%d_%H%M%S.dump")
 cputs "Creating #{dump_name} and cleaning up"
 C.exec! 'mkdir -p deidentified_snapshots'
 C.exec! "pg_dump -Fc #{TMP_DB} > ./deidentified_snapshots/#{dump_name}"

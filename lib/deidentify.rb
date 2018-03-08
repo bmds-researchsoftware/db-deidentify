@@ -13,13 +13,14 @@ def deidentify!
     fields = fields.remove!('ignore')
   else
     eputs 'NO FIELDS TO DEIDENTIFY. RETREIVING RAW DUMP.'
-    return
+    return false
   end
   # Iterate of each field (top-level map) in fields.yml and alter records
   fields.each do |field|
     field = OpenStruct.new(field).freeze
     alter(field)
   end
+  true
 end
 
 # Builds and executes the SQL for a field
