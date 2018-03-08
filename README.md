@@ -82,7 +82,7 @@ user.
   sudo -i -u postgres
   createuser deidentify
   </pre>
-* Grant createddb privileges to the new role in psql:
+* Grant `createddb` privileges to the new role in psql:
   <pre>
   ALTER ROLE <b><i>role_name</i></b> WITH createdb;
   </pre>
