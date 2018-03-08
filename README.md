@@ -1,33 +1,33 @@
 # db-deidentify
-Local deidentified pg\_dumps for remote postgres databases.
+local deidentified pg\_dumps for remote postgres databases.
 
-## Getting started
-There are no prerequisites other than Ruby and the bundler gem.
-* Clone the repo to your machine
-* Run `bundle install`
-* Create a project directory for the target database, such
-as `./projects/my_project/`. In that directory, create a file called `db_conf.yml`. Everything in
-`./projects/` is ignored by Git.
+## getting started
+there are no prerequisites other than ruby and the bundler gem.
+* clone the repo to your machine
+* run `bundle install`
+* create a project directory for the target database, such
+as `./projects/my_project/`. in that directory, create a file called `db_conf.yml`. everything in
+`./projects/` is ignored by git.
 <pre>
 host: <b><i>remote_host_name</i></b>
 user: <b><i>remote_host_user</i></b>
 db_name: <b><i>target_database_name</i></b>
 </pre>
-* Provide a public key from a local key pair to someone who has the needed privileges on the remote
-host. Once this key is in place, you can generate deidentified dumps of the target database.
-* Run the program using the `get_dump` executable and provide the project name as an argument, like
-`./get_dump my_project`. Dump files will be placed in `./projects/my_project/dumps`. 
-When using a dump file, `pg_restore` may complain about roles and privileges, but the
+* provide a public key from a local key pair to someone who has the needed privileges on the remote
+host. once this key is in place, you can generate deidentified dumps of the target database.
+* run the program using the `get_dump` executable and provide the project name as an argument, like
+`./get_dump my_project`. dump files will be placed in `./projects/my_project/dumps`. 
+when using a dump file, `pg_restore` may complain about roles and privileges, but the
 restored database should work. :pray:
 
 ## fields.yml
-All project-specific configuration occurs in this file. Each project has a `fields.yml` file in
-its project directory. The top-level structure of the file is a sequence that is loaded into 
-an array at runtime. Each map in the sequence corresponds to a particular database field
-(table-column combination) that needs to be deidentified. Any top-level map with the key `ignore:`
-will be ignored at runtime, so you can put any YAML content there, such as anchors. Here is an
-example where an achor servers as a template for a group of similar fields, defining the
-attributes that they have in common.
+in your project's directory, create a file called `fields.yml`, or get a copy from a team member for
+already-configured projects. This file defines the database fields that will be deidentified. The
+top-level structure of the file is a sequence that is loaded into an array at runtime. Each map in
+the sequence corresponds to a particular database field (table-column combination) that needs to be
+deidentified. Any top-level map with the key `ignore:` will be ignored at runtime, so you can put
+any YAML content there, such as anchors. Here is an example where an anchor serves as a template for
+a group of similar fields, defining the attributes that they have in common.
 <pre>
 - ignore:
     # Answer templates
@@ -39,7 +39,7 @@ attributes that they have in common.
       leave_null: true
 </pre>
 
-Each not-ignored top-level map must have the following key-value pairs
+Each field must define the following key-value pairs:
 * `name:` Any text you like to describe the field
 * `table:` The database table containing the field
 * `column:` The column containing the field
@@ -59,9 +59,9 @@ nulls will be replaced with program output.
 Optionally, each field may have a nested map with the key `where:`. This map is used to
 generate WHERE clauses in the resulting SQL. Each key is a column name, and each value is
 the value that the WHERE clause will filter on. In the example below, only records where
-question\_id is 155 are altered.
+question\_id is 155 are altered. This example also uses the `simple_string` template defined above.
 <pre>
-- name: Medical record number (pregnancy_mrn)
+- name: Medical record number
   <<: *simple_string
   output_type: random
   where:
