@@ -16,8 +16,8 @@ db_name: <b><i>target_database_name</i></b>
 * Provide a public key from a local key pair to someone who has the needed privileges on the remote
 host. Once this key is in place, you can generate deidentified dumps of the target database.
 * Run the program using the `get_dump` executable and provide the project name as an argument, like
-`./get_dump my_project`. Dump files will be placed in the `my_dumps` directory and will be ignored
-by Git. When using a dump file, `pg_restore` may complain about roles and privileges, but the
+`./get_dump my_project`. Dump files will be placed in `./projects/my_project/dumps`. 
+When using a dump file, `pg_restore` may complain about roles and privileges, but the
 restored database seems to work. :pray:
 
 ## fields.yml
