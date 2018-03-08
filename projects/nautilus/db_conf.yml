@@ -1,0 +1,3 @@
+host: otta.dartmouth.edu
+user: deidentify
+db_name: echo_production
