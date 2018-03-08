@@ -23,8 +23,8 @@ Dir['./fake_libs/*.fake_lib_csv'].each do |name|
 end
 FakeLib = OpenStruct.new(fake_lib).freeze
 
-@project_path = ARGV[1]
-project_name = @project_path.split('/').last
+project_name = ARGV[1]
+@project_path = "./projects/#{project_name}"
 
 # Load project-specific content
 DB_CONFIG = YAML.load_file(project_file 'db_conf.yml')
@@ -62,10 +62,9 @@ C.close
 cputs 'SSH session closed'
 
 # Retreive the dump
-cputs "Secure-copying dump file to ./my_dumps/#{dump_name}" 
-dump_path = project_file 'dumps'
-eputs dump_path
-`"mkdir -p #{dump_path}"`
+dump_path = "#{@project_path}/dumps"
+cputs "Secure-copying dump file to #{@project_path}/#{dump_name}" 
+`mkdir -p #{dump_path}`
 scp_download!("./deidentified_snapshots/#{dump_name}", "#{dump_path}/#{dump_name}")
 END_TIME = Time.now
 cputs "Elapsed time #{Time.at(END_TIME - START_TIME).utc.strftime("%H:%M:%S")}"

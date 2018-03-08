@@ -2,4 +2,4 @@
 [[ "$#" == 1 ]] || { echo 'usage: get_dump <project_name>'; exit 1; }
 project_path="./projects/$1"
 [[ -d $project_path ]] || { echo "$project_path does not exist"; exit 1; }
-bundle exec ruby main.rb 'name_ok' $project_path
+bundle exec ruby main.rb 'name_ok' $1

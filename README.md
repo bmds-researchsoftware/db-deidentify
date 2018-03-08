@@ -18,7 +18,7 @@ host. Once this key is in place, you can generate deidentified dumps of the targ
 * Run the program using the `get_dump` executable and provide the project name as an argument, like
 `./get_dump my_project`. Dump files will be placed in `./projects/my_project/dumps`. 
 When using a dump file, `pg_restore` may complain about roles and privileges, but the
-restored database seems to work. :pray:
+restored database should work. :pray:
 
 ## fields.yml
 All project-specific configuration occurs in this file. Each project has a `fields.yml` file in
