@@ -1,5 +1,5 @@
 /projects/*
-!/projects/README
+!/projects/README.md
 *.swp
 /my_dumps/*.dump
 *db_config.yml
