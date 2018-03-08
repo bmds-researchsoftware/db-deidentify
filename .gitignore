@@ -1,3 +1,4 @@
+/projects/*
 *.swp
 /my_dumps/*.dump
 *db_config.yml
