@@ -76,12 +76,13 @@ groups required for ssh login.
   useradd -m deidentify
   usermod -a -G sshlogin deidentify
   </pre>
-* Create a postgres role for the user
+* Using a role that has `Create role` privileges ("postgres" by default), create a role for the
+user.
   <pre>
   sudo -i -u postgres
   createuser deidentify
   </pre>
-* Grant createddb privileges to the new role, still as the postgres user, in psql:
+* Grant createddb privileges to the new role in psql:
   <pre>
   ALTER ROLE <b><i>role_name</i></b> WITH createdb;
   </pre>
