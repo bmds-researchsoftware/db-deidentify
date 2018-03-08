@@ -5,7 +5,7 @@ Local deidentified pg\_dumps for remote postgres databases.
 There are no prerequisites other than Ruby and the bundler gem.
 * Clone the repo to your machine
 * Run `bundle install`
-* Create a project directory for the targeted database, such
+* Create a project directory for the target database, such
 as `./projects/my_project/`. In that directory, create a file called `db_conf.yml`. Everything in
 `./projects/` is ignored by Git.
 <pre>
