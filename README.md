@@ -68,8 +68,19 @@ question\_id is 155 are altered.
 </pre>
 
 ## Postgres setup on the remote server (for db admins)
-* Create a distinct user on the target host for this application
-* Create a postgres role for the user and grant that role createddb privileges
+* Create a distinct user on the target host for deidentification actions, and add that user to any
+groups required for ssh login.
+  <pre>
+  sudo -i
+  useradd -m deidentify
+  usermod -a -G sshlogin deidentify
+  </pre>
+* Create a postgres role for the user
+  <pre>
+  sudo -i -u postgres
+  createuser deidentify
+  </pre>
+* Grant createddb privileges to the new role, still as the postgres user, in psql:
   <pre>
   ALTER ROLE <b><i>role_name</i></b> WITH createdb;
   </pre>

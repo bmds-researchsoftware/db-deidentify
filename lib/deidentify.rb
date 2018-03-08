@@ -7,7 +7,14 @@ def deidentify!
     return
   end
   # Load project-specfic deidentification config into a struct
-  fields = YAML.load_file(pf 'fields.yml').remove!('ignore')
+  fields = YAML.load_file(pf 'fields.yml')
+  # If nothing is found in the file, YAML will return false
+  if fields
+    fields = fields.remove!('ignore')
+  else
+    eputs 'NO FIELDS TO DEIDENTIFY. RETREIVING RAW DUMP.'
+    return
+  end
   # Iterate of each field (top-level map) in fields.yml and alter records
   fields.each do |field|
     field = OpenStruct.new(field).freeze
