@@ -6,8 +6,8 @@ There are no prerequisites other than Ruby and the bundler gem.
 * Clone the repo to your machine
 * Run `bundle install`
 * Create a project directory for the targeted database, such
-as `./projects/my_project/`. In that directory, create a file called `db_conf.yml`. This file is
-ignored by Git and has the following format. Everything in `./projects/` is ignored by Git.
+as `./projects/my_project/`. In that directory, create a file called `db_conf.yml`. Everything in
+`./projects/` is ignored by Git.
 <pre>
 host: <b><i>remote_host_name</i></b>
 user: <b><i>remote_host_user</i></b>
