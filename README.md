@@ -16,7 +16,7 @@ db_name: <b><i>target_database_name</i></b>
 * provide a public key from a local key pair to someone who has the needed privileges on the remote
 host. once this key is in place, you can generate deidentified dumps of the target database.
 * run the program using the `get_dump` executable and provide the project name as an argument, like
-`./get_dump my_project`. dump files will be placed in `./projects/my_project/dumps`. 
+`./get_dump my_project`. dump files will be placed in `./projects/<project name>/dumps`. 
 when using a dump file, `pg_restore` may complain about roles and privileges, but the
 restored database should work. :pray:
 
