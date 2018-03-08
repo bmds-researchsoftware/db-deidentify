@@ -69,6 +69,7 @@ question\_id is 155 are altered.
 </pre>
 
 ## Postgres setup on the remote server (for db admins)
+These instructions are for setups that use peer authentication.
 * Create a distinct user on the target host for deidentification actions, and add that user to any
 groups required for ssh login.
   <pre>
@@ -86,8 +87,8 @@ user.
   <pre>
   ALTER ROLE <b><i>role_name</i></b> WITH createdb;
   </pre>
-* Grant the user select privileges for the target database. You must be connected to the
-target database for this step. Note the distinction between ***creating\_role*** and ***role***.
+* Grant the new role select privileges for the target database. Connect to the target database for
+this step. Note the distinction between ***creating\_role*** and ***role***.
 ***creating\_role*** owns the target database.
   <pre>
   GRANT SELECT ON ALL TABLES IN SCHEMA public TO <b><i>role</i></b>;
