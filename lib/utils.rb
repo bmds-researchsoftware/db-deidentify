@@ -50,7 +50,7 @@ def scp_download!(remote_path, local_path)
   )
 end
 
-# "Project file" returns a path for the passed-in project-specific file
-def pf(fname)
+# Returns a path for the passed-in project-specific file
+def project_file(fname)
   "#{@project_path}/#{fname}"
 end
