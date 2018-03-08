@@ -76,7 +76,7 @@ groups required for ssh login.
   useradd -m deidentify
   usermod -a -G sshlogin deidentify
   </pre>
-* Using a role that has `Create role` privileges ("postgres" by default), create a role for the
+* Using a role that has `createrole` privileges ("postgres" by default), create a role for the
 user.
   <pre>
   sudo -i -u postgres
